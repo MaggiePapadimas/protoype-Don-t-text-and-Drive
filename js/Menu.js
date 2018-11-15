@@ -1,14 +1,14 @@
 // menu
 function Menu( color, w, h, playButton, controlButton ){
   this.color = color;
-  this.w = w;
-  this.h = h;
+  this.x = w;
+  this.y = h;
   this.playButton = controlButton;
   this.controlButton = controlButton;
 
-  this.buttonX = this.w/2;
-  this.playButtonY = this.h/2;
-  this.controlButtonY = this.h/1;
+  this.buttonX = this.x/2.5;
+  this.playButtonY = this.y/4;
+  this.controlButtonY = this.y/2;
 }
 
 //for clicking on screen
@@ -35,9 +35,10 @@ Menu.prototype.handleInput = function(x, y) {
 Menu.prototype.display = function() {
   gameScreen = 0;
   background(this.color);
-  textSize(35);
+  textSize(50);
   fill(0);
-  text("Games Title", this.w/2, this.h/4);
+  textAlign(CENTER);
+  text("Games Title", this.x/2, this.y/5);
   image(this.playButton, this.buttonX, this.playButtonY);
   image(this.controlButton, this.buttonX, this.controlButtonY);
 }
@@ -53,16 +54,16 @@ Menu.prototype.display = function() {
 
 function ControlScreen( color, w, h, controlImage, keyboardImage, menuButton, playButton ) {
   this.color = color;
-  this.w = w;
-  this.h = h;
+  this.x = w;
+  this.y = h;
   this.controlImage = controlImage;
   this.keyboardImage = keyboardImage;
   this.menuButton = menuButton;
   this.playButton = playButton;
 
-  this.buttonX = this.w/2;
-  this.playButtonY = this.h/2;
-  this.menuButtonY = this.h/1;
+  this.buttonX = this.x/2;
+  this.playButtonY = this.y/4;
+  this.menuButtonY = this.y/2;
 }
 
 //for clicking on screen
@@ -74,14 +75,14 @@ ControlScreen.prototype.handleInput = function(x, y) {
       return 1;
     }
     else if(y > this.menuButtonY && y < this.menuButtonY + height){
-      return 0;
+      return 2;
     }
     else{
-      return 2;
+      return 0;
     }
   }
   else{
-    return 2;
+    return 0;
   }
 }
 
@@ -91,7 +92,9 @@ ControlScreen.prototype.display = function() {
   background(this.color);
   textSize(50);
   fill(0);
-  text("CONTROLS", this.w/2, this.w/5);
+
+  text("INSTRUCTIONS", this.x/2, this.y/5);
+
   image(this.playButton, this.buttonX, this.playButtonY);
   image(this.menuButton, this.buttonX, this.menuButtonY);
 }

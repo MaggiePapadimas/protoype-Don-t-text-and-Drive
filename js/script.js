@@ -13,10 +13,6 @@ var menu;
 var controlsMenu;
 var gameScreen = 0;
 
-//buttons for menu
-var buttonX;
-var playButtonY;
-var controlButtonY;
 
 function preload (){
   img1 = loadImage("assets/images/img1v2.jpg");
@@ -38,7 +34,8 @@ function setup() {
   city = new City(images, 1000);
   car = new Car(50,50,120,60,0,0,5,5,"#b70000");
   player = new Player(car);
-  menu = new Menu( "#C0C0C0", width/2, height/2, controlButton, playButton );
+  menu = new Menu( "#C0C0C0", width, height, controlButton, playButton);
+  controlMenu = new ControlScreen( "#A3E4D7", width, height, controlImage, keyboardImage, menuButton, playButton);
 
   menu.display();
 
@@ -61,7 +58,7 @@ function draw () {
   }
   else if(gameScreen == 2){
     controlMenu.display();
-    controlMenu.handleInput(mouseX, mouseY);
+    controlMenu.handleInput();
   }
 }
 //handke input for the player
@@ -82,18 +79,17 @@ function mousePressed (){
     }
     //if pressed goes to controls screen
     else if(buttonPressed == 2){
-      controlMenu = new ControlScreen( "#A3E4D7", width/2, height/2, controlImage, keyboardImage, menuButton, playButton);
       gameScreen = 2;
       controlMenu.display();
     }
   }
+  //control screen
   if (gameScreen == 2){
     var buttonPressed;
     buttonPressed = controlMenu.handleInput(mouseX, mouseY);
     //if pressed then game starts
     if(buttonPressed == 1){
       gameScreen = 1;
-
     }
     //if pressed goes to menu screen
     else if(buttonPressed == 2){
