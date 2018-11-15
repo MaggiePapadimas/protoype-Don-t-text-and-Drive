@@ -35,7 +35,7 @@ function setup() {
   car = new Car(50,50,120,60,0,0,5,5,"#b70000");
   player = new Player(car);
   menu = new Menu( "#C0C0C0", width, height, controlButton, playButton);
-  controlMenu = new ControlScreen( "#A3E4D7", width, height, controlImage, keyboardImage, menuButton, playButton);
+  controlScreen = new ControlScreen( "#A3E4D7", width, height, controlImage, keyboardImage, menuButton, playButton);
 
   menu.display();
 
@@ -46,6 +46,7 @@ function setup() {
 //draw function
 function draw () {
   if(gameScreen == 0){
+    menu.display();
     menu.handleInput();
   }
   else if(gameScreen == 1){
@@ -57,8 +58,8 @@ function draw () {
 
   }
   else if(gameScreen == 2){
-    controlMenu.display();
-    controlMenu.handleInput();
+    controlScreen.handleInput();
+    controlScreen.display();
   }
 }
 //handke input for the player
@@ -75,24 +76,23 @@ function mousePressed (){
     //if pressed then game starts
     if(buttonPressed == 1){
       gameScreen = 1;
-
     }
     //if pressed goes to controls screen
     else if(buttonPressed == 2){
       gameScreen = 2;
-      controlMenu.display();
+      controlScreen.display();
     }
   }
   //control screen
   if (gameScreen == 2){
-    var buttonPressed;
-    buttonPressed = controlMenu.handleInput(mouseX, mouseY);
+    var buttonPresser;
+    buttonPresser = controlScreen.handleInput(mouseX, mouseY);
     //if pressed then game starts
-    if(buttonPressed == 1){
+    if(buttonPresser == 1){
       gameScreen = 1;
     }
     //if pressed goes to menu screen
-    else if(buttonPressed == 2){
+    else if(buttonPresser == 2){
       gameScreen = 0;
     }
   }
