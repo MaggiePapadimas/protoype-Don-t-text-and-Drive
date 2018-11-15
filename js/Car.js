@@ -12,6 +12,7 @@ function Car (x, y, w, h, vx, vy, maxVSpeed, maxHSpeed, color){
 }
 //displays the car
 Car.prototype.display = function () {
+  noStroke();
   fill(this.color);
   rect(this.x,this.y,this.w,this.h);
 }

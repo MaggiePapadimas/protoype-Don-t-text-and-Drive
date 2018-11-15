@@ -28,10 +28,12 @@ Player.prototype.update = function () {
   this.car.vx = 0;
   this.car.vy = 0;
 }
+
 //displays the car
 Player.prototype.display = function () {
   this.car.display();
 }
+
 //controls the car
 Player.prototype.handleInput = function(){
 
