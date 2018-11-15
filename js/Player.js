@@ -31,6 +31,7 @@ Player.prototype.update = function () {
 
 //displays the car
 Player.prototype.display = function () {
+  gameScreen = 1;
   this.car.display();
 }
 

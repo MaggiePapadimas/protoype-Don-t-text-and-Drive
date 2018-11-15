@@ -10,12 +10,15 @@ function Car (x, y, w, h, vx, vy, maxVSpeed, maxHSpeed, color){
   this.maxHSpeed = maxHSpeed;
   this.color = color;
 }
+
 //displays the car
 Car.prototype.display = function () {
+  gameScreen = 1;
   noStroke();
   fill(this.color);
   rect(this.x,this.y,this.w,this.h);
 }
+
 //updates the position
 Car.prototype.update = function () {
   this.x += this.vx;
