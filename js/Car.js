@@ -1,3 +1,13 @@
+function IsInside(x, y, boxX, boxY, boxWidth, boxHeight){
+  if(x >= boxX && x <= boxX + boxWidth){
+    if(y >= boxY && y <= boxY + boxHeight){
+      return true;
+    }
+  }
+   return false;
+}
+
+
 //car
 function Car (x, y, w, h, vx, vy, maxVSpeed, maxHSpeed, color){
   this.x = x;
@@ -9,6 +19,7 @@ function Car (x, y, w, h, vx, vy, maxVSpeed, maxHSpeed, color){
   this.maxVSpeed = maxVSpeed;
   this.maxHSpeed = maxHSpeed;
   this.color = color;
+
 }
 
 //displays the car
@@ -23,4 +34,37 @@ Car.prototype.display = function () {
 Car.prototype.update = function () {
   this.x += this.vx;
   this.y += this.vy;
+}
+
+Car.prototype.colliding = function( otherCar ){
+  var x1 = this.x;
+  var y1 = this.y;
+
+  var x2 = x1 + this.w;
+  var y2 = y1;
+
+  var x3 = x1;
+  var y3 = y1 + this.h;
+
+  var x4 = x1 + this.w;
+  var y4 = y1 + this.h;
+
+  if(IsInside( x1, y1, otherCar.x, otherCar.y, otherCar.w, otherCar.h )){return true}
+  else if(IsInside( x2, y2, otherCar.x, otherCar.y, otherCar.w, otherCar.h )){return true}
+  else if(IsInside( x3, y3, otherCar.x, otherCar.y, otherCar.w, otherCar.h )){return true}
+  else if(IsInside( x4, y4, otherCar.x, otherCar.y, otherCar.w, otherCar.h )){return true}
+  else{return false};
+}
+
+Car.prototype.isColliding = function( otherCar ){
+  if(this.colliding( otherCar )){
+    this.color = "#0000ff"
+    return true;
+  }
+  else if(otherCar.colliding( this )){
+    this.color = "#0000ff"
+    return true;
+  }
+  this.color = "#b70000";
+  return false;
 }

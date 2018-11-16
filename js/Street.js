@@ -14,6 +14,7 @@ Street.prototype.update = function () {
   this.x += scrollSpeed;
 }
 
+
 //displays the car
 Street.prototype.display = function () {
   image(this.image, this.x, this.y);
