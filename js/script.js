@@ -5,6 +5,7 @@
 //
 // the goal of the game is to get home without "crashing". You have to avoid trees, houses, and water while answering your texts on your phone.
 //this is script
+var scrollSpeed = 15;
 var enemyCar;
 var playerCar;
 var player;
@@ -13,7 +14,10 @@ var images = [];
 var menu;
 var controlsMenu;
 var gameScreen = 0;
+var traffic;
 
+var screenWidth = 1000;
+var screenHeight = 500;
 function preload (){
   img1 = loadImage("assets/images/img1v3.jpg");
   img2 = loadImage("assets/images/img2v3.jpg");
@@ -31,18 +35,27 @@ function preload (){
 }
 
 function setup() {
-  createCanvas(1000,500);
-  city = new City(images, 1000);
+  createCanvas(screenWidth,screenHeight);
+  city = new City(images, screenWidth);
   playerCar = new Car(15,250,120,60,0,0,5,5,"#b70000");
-  player = new Player(playerCar, 0, 1000, 0, 500);
-  enemyCar = new Car(500,250,120,60,0,0,5,5,"#b79200");
+  player = new Player(playerCar, 0, screenWidth, 100, 400);
+  traffic = new Traffic(-9, screenWidth, 0);
 //  menu = new Menu( "#C0C0C0", width, height, controlButton, playButton);
 //  controlScreen = new ControlScreen( "#A3E4D7", width, height, controlImage, keyboardImage, playButton, playButton);
 
 //  menu.display();
 
   city.addStreet(0);
-  city.addStreet(-images[0].width);
+  city.addStreet(images[0].width);
+
+ var start = screenWidth;
+ var space = 400;
+ for(var i = 0; i < 3; i++){
+   traffic.addCar(start);
+   start += space;
+ }
+
+
 }
 
 //draw function
@@ -53,12 +66,16 @@ function draw () {
 //  }
 //  else if(gameScreen == 1){
 //displays player and updates position
-    city.update();
-    city.display();
-    player.display();
-    player.update();
-    enemyCar.display();
-    player.car.isColliding(enemyCar);
+  city.update();
+  traffic.update(player);
+
+  city.display();
+  player.display();
+  player.update();
+
+  traffic.display();
+
+  //  player.car.isColliding(enemyCar);
 
 //  }
 //  else if(gameScreen == 2){

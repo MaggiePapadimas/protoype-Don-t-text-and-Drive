@@ -65,6 +65,6 @@ Car.prototype.isColliding = function( otherCar ){
     this.color = "#0000ff"
     return true;
   }
-  this.color = "#b70000";
+  this.color = "#00B2FF";
   return false;
 }

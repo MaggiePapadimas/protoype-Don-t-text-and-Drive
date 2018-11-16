@@ -1,5 +1,4 @@
 //background
-var scrollSpeed = 2;
 var gameScreen = 1;
 
 function Street(x, y, image, maxBar) {
@@ -11,9 +10,8 @@ function Street(x, y, image, maxBar) {
 
 //updates the position
 Street.prototype.update = function () {
-  this.x += scrollSpeed;
+  this.x -= scrollSpeed;
 }
-
 
 //displays the car
 Street.prototype.display = function () {
@@ -21,7 +19,7 @@ Street.prototype.display = function () {
 }
 
 Street.prototype.outOfScreen = function(){
-  if(this.x < this.maxBar){
+  if(this.x > -this.image.width){
     return false;
   }
   else{
@@ -48,13 +46,12 @@ City.prototype.update = function(){
     this.streets[i].update();
     if(this.streets[i].outOfScreen()){
       this.streets.splice(i, 1);
-      this.addStreet(-this.images[0].width);
+      this.addStreet(this.images[0].width);
     }
   }
 }
 
 City.prototype.addStreet = function ( x ){
   var number = (int)(random(0, this.images.length));
-  console.log("Number: " + number + " size: "+this.images.length);
   this.streets.push(new Street(x, 0, this.images[number], this.maxBar));
 }
