@@ -33,8 +33,8 @@ function preload (){
 function setup() {
   createCanvas(1000,500);
   city = new City(images, 1000);
-  playerCar = new Car(50,50,120,60,0,0,5,5,"#b70000");
-  player = new Player(playerCar);
+  playerCar = new Car(15,250,120,60,0,0,5,5,"#b70000");
+  player = new Player(playerCar, 0, 1000, 0, 500);
   enemyCar = new Car(500,250,120,60,0,0,5,5,"#b79200");
 //  menu = new Menu( "#C0C0C0", width, height, controlButton, playButton);
 //  controlScreen = new ControlScreen( "#A3E4D7", width, height, controlImage, keyboardImage, playButton, playButton);

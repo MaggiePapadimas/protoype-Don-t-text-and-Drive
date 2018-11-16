@@ -1,6 +1,5 @@
 //Player
 
-
 // These are the multiple keys that control the players car
 //WASD, TFGH, IJKL, EVUN
 
@@ -17,8 +16,12 @@ var DOWN_KEYS = [83, 71, 75, 85];
 var RIGHT_KEYS = [68, 72, 76, 78];
 
 //player
-function Player (car){
+function Player ( car, minX, maxX, minY, maxY ){
   this.car = car;
+  this.minX = minX;
+  this.maxX = maxX;
+  this.minY = minY;
+  this.maxY = maxY;
 }
 
 //updates the position
@@ -45,20 +48,20 @@ Player.prototype.handleInput = function(){
 
   for(var i = 0; i < UP_KEYS.length; i++){
 
-    if(keyIsDown(UP_KEYS[i])){
+    if(keyIsDown(UP_KEYS[i]) && this.car.y > this.minY ){
       vUp = -this.car.maxVSpeed;
     }
 
-    if(keyIsDown(DOWN_KEYS[i])){
+    if(keyIsDown(DOWN_KEYS[i]) && this.car.y + this.car.h < this.maxY ){
       vDown = this.car.maxVSpeed;
     }
 
-    if(keyIsDown(LEFT_KEYS[i])){
+    if(keyIsDown(LEFT_KEYS[i]) && this.car.x > this.minX ){
       vLeft = -this.car.maxHSpeed;
 
     }
 
-    if(keyIsDown(RIGHT_KEYS[i])){
+    if(keyIsDown(RIGHT_KEYS[i]) && this.car.x + this.car.w < this.maxX ){
       vRight = this.car.maxHSpeed;
     }
   }
