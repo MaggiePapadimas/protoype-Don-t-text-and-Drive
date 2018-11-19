@@ -45,7 +45,7 @@ Player.prototype.handleInput = function(){
   var vDown = 0;
   var vLeft = 0;
   var vRight = 0;
-
+// controls for car
   for(var i = 0; i < UP_KEYS.length; i++){
 
     if(keyIsDown(UP_KEYS[i]) && this.car.y > this.minY ){
@@ -65,7 +65,7 @@ Player.prototype.handleInput = function(){
       vRight = this.car.maxHSpeed;
     }
   }
-
+// gives smooth moving
   this.car.vx = vLeft + vRight;
   this.car.vy = vUp + vDown;
 }

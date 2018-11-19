@@ -1,4 +1,7 @@
+// cars to dodge
+//
 function IsInside(x, y, boxX, boxY, boxWidth, boxHeight){
+// stops car from leaving road
   if(x >= boxX && x <= boxX + boxWidth){
     if(y >= boxY && y <= boxY + boxHeight){
       return true;
@@ -35,7 +38,7 @@ Car.prototype.update = function () {
   this.x += this.vx;
   this.y += this.vy;
 }
-
+// checks for collisison with other cars
 Car.prototype.colliding = function( otherCar ){
   var x1 = this.x;
   var y1 = this.y;
@@ -55,7 +58,7 @@ Car.prototype.colliding = function( otherCar ){
   else if(IsInside( x4, y4, otherCar.x, otherCar.y, otherCar.w, otherCar.h )){return true}
   else{return false};
 }
-
+// if player collides with other car it turns blue
 Car.prototype.isColliding = function( otherCar ){
   if(this.colliding( otherCar )){
     this.color = "#0000ff"

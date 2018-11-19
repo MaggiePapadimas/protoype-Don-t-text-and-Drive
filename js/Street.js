@@ -1,6 +1,6 @@
 //background
 var gameScreen = 1;
-
+// for street
 function Street(x, y, image, maxBar) {
   this.x = x;
   this.y = y;
@@ -8,7 +8,7 @@ function Street(x, y, image, maxBar) {
   this.maxBar = maxBar
 }
 
-//updates the position
+//updates the position of image
 Street.prototype.update = function () {
   this.x -= scrollSpeed;
 }
@@ -17,7 +17,7 @@ Street.prototype.update = function () {
 Street.prototype.display = function () {
   image(this.image, this.x, this.y);
 }
-
+// moves the simages
 Street.prototype.outOfScreen = function(){
   if(this.x > -this.image.width){
     return false;
@@ -26,7 +26,7 @@ Street.prototype.outOfScreen = function(){
     return true;
   }
 }
-
+// images for the city
 function City( images, maxBar ){
   this.images = images
   this.streets = [];
@@ -40,7 +40,7 @@ City.prototype.display = function () {
     this.streets[i].display();
   }
 }
-
+// deletes images once off screen
 City.prototype.update = function(){
   for(var i = this.streets.length -1; i >= 0; i--){
     this.streets[i].update();
@@ -50,7 +50,7 @@ City.prototype.update = function(){
     }
   }
 }
-
+// places random images
 City.prototype.addStreet = function ( x ){
   var number = (int)(random(0, this.images.length));
   this.streets.push(new Street(x, 0, this.images[number], this.maxBar));

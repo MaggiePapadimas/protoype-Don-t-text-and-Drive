@@ -5,20 +5,30 @@
 //
 // the goal of the game is to get home without "crashing". You have to avoid trees, houses, and water while answering your texts on your phone.
 //this is script
+//controls the scroll speed
 var scrollSpeed = 15;
+// cars to dodge
 var enemyCar;
+//player
 var playerCar;
 var player;
+//background
 var city;
 var images = [];
+// for menu
 var menu;
 var controlsMenu;
+// screens
 var gameScreen = 0;
+// enemy cars
 var traffic;
 
+// canvas
 var screenWidth = 1000;
 var screenHeight = 500;
+// images
 function preload (){
+  // background images
   img1 = loadImage("assets/images/img1v3.jpg");
   img2 = loadImage("assets/images/img2v3.jpg");
   img3 = loadImage("assets/images/img3v3.jpg");
@@ -30,10 +40,10 @@ function preload (){
   controlButton = loadImage("assets/images/controlbutton.jpg");
   playButton = loadImage("assets/images/playbutton.jpg");
   menuButton = loadImage("assets/images/menubutton.jpg");
-
+// background loop
   images = [img1, img2, img3, img4];
 }
-
+// loads background, player, menu, and enemy cars
 function setup() {
   createCanvas(screenWidth,screenHeight);
   city = new City(images, screenWidth);
@@ -44,10 +54,9 @@ function setup() {
 //  controlScreen = new ControlScreen( "#A3E4D7", width, height, controlImage, keyboardImage, playButton, playButton);
 
 //  menu.display();
-
+// loops the street
   city.addStreet(0);
   city.addStreet(images[0].width);
-
  var start = screenWidth;
  var space = 400;
  for(var i = 0; i < 3; i++){
@@ -65,14 +74,14 @@ function draw () {
 //    menu.handleInput();
 //  }
 //  else if(gameScreen == 1){
-//displays player and updates position
+//displays player and updates position, and traffic
   city.update();
   traffic.update(player);
-
   city.display();
+// displays player
   player.display();
   player.update();
-
+// displays the traffic
   traffic.display();
 
   //  player.car.isColliding(enemyCar);
@@ -83,13 +92,13 @@ function draw () {
 //    controlScreen.display();
 //  }
 }
-//handke input for the player
+//handle input for the player
 function keyPressed() {
   player.handleInput(keyCode);
 }
 
 
-
+// this is for the menus
 // function mousePressed (){
 //   if (gameScreen == 0) {
 //
