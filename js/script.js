@@ -22,12 +22,16 @@ var controlsMenu;
 var gameScreen = 0;
 // enemy cars
 var traffic;
-
+// texts
+var phoneText;
 // canvas
 var screenWidth = 1000;
 var screenHeight = 500;
+
+var monoFont;
 // images
 function preload (){
+ monoFont = loadFont("assets/fonts/UbuntuMono-R.ttf");
   // background images
   img1 = loadImage("assets/images/img1v3.jpg");
   img2 = loadImage("assets/images/img2v3.jpg");
@@ -45,11 +49,15 @@ function preload (){
 }
 // loads background, player, menu, and enemy cars
 function setup() {
+  textFont(monoFont);
+
   createCanvas(screenWidth,screenHeight);
   city = new City(images, screenWidth);
   playerCar = new Car(15,250,120,60,0,0,5,5,"#b70000");
   player = new Player(playerCar, 0, screenWidth, 100, 400);
   traffic = new Traffic(-9, screenWidth, 0);
+  phoneText = new PhoneText("type this text", 550, 100, 400, 300, "#636363", "#004545", "#670020", "#ffffff" )
+
 //  menu = new Menu( "#C0C0C0", width, height, controlButton, playButton);
 //  controlScreen = new ControlScreen( "#A3E4D7", width, height, controlImage, keyboardImage, playButton, playButton);
 
@@ -57,14 +65,12 @@ function setup() {
 // loops the street
   city.addStreet(0);
   city.addStreet(images[0].width);
- var start = screenWidth;
- var space = 400;
- for(var i = 0; i < 3; i++){
-   traffic.addCar(start);
-   start += space;
- }
-
-
+  var start = screenWidth;
+  var space = 400;
+  for(var i = 0; i < 3; i++){
+    traffic.addCar(start);
+    start += space;
+  }
 }
 
 //draw function
@@ -81,10 +87,10 @@ function draw () {
 // displays player
   player.display();
   player.update();
-// displays the traffic
+// displays the traffic and text
   traffic.display();
+  phoneText.display();
 
-  //  player.car.isColliding(enemyCar);
 
 //  }
 //  else if(gameScreen == 2){
@@ -92,9 +98,10 @@ function draw () {
 //    controlScreen.display();
 //  }
 }
-//handle input for the player
+//handle input for the player and phone
 function keyPressed() {
   player.handleInput(keyCode);
+  phoneText.handleInput(keyCode);
 }
 
 
