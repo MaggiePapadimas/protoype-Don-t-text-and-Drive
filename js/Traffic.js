@@ -31,8 +31,9 @@ Traffic.prototype.update = function( player ){
 
 // adds cars
 Traffic.prototype.addCar = function( startX ){
-  var number = (int)(random(0, startYs.length));
-  this.cars.push(new Car(startX, startYs[number], 120, 60, this.vx, 0, 0, 0, "#00B2FF", this.carImages[0]));
+  var lane = (int)(random(0, startYs.length));
+  var model = (int)(random(0, carImages.length));
+  this.cars.push(new Car(startX, startYs[lane], 120, 60, this.vx, 0, 0, 0, "#00B2FF", this.carImages[model]));
 }
 // checks if car is out of screen
 Traffic.prototype.outOfScreen = function( car ){
