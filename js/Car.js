@@ -64,13 +64,10 @@ Car.prototype.colliding = function( otherCar ){
 // if player collides with other car it turns blue
 Car.prototype.isColliding = function( otherCar ){
   if(this.colliding( otherCar )){
-    this.color = "#0000ff"
     return true;
   }
   else if(otherCar.colliding( this )){
-    this.color = "#0000ff"
     return true;
   }
-  this.color = "#00B2FF";
   return false;
 }

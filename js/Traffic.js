@@ -20,9 +20,11 @@ Traffic.prototype.display = function(){
 Traffic.prototype.update = function( player ){
   for(var i = this.cars.length - 1; i >= 0; i--){
     this.cars[i].update();
-    this.cars[i].isColliding(player.car);
+  if( this.cars[i].isColliding(player.car)){
+      player.hit();
+  }
 // once cars are out of screen they are deleted
-    if (this.outOfScreen( this.cars[i] )){
+    if (player.lives > 0 && this.outOfScreen( this.cars[i] )){
       this.cars.splice( i, 1 );
       this.addCar( this.startX );
     }

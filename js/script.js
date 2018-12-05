@@ -16,6 +16,7 @@ var enemyCar;
 //player
 var player;
 var playerImg;
+var heartImg;
 //background
 var city;
 var streetImages = [];
@@ -29,8 +30,7 @@ var controlsMenu;
 var gameScreen = 0;
 // enemy cars
 var traffic;
-// texts
-var phone;
+
 // canvas
 var screenWidth = 1500;
 var screenHeight = 720;
@@ -40,13 +40,15 @@ var monoFont;
 var soundReceive;
 var soundType;
 var soundSend;
-
+var soundHit;
+var gameStart;
 // images
 function preload (){
 
   soundReceive = new Audio("assets/sounds/sound_receive.wav");
   soundSend = new Audio("assets/sounds/sound_send.wav");
   soundType = new Audio("assets/sounds/sound_type.wav");
+  soundHit = new Audio("assets/sounds/sound_crash.wav");
   //soundSend
   monoFont = loadFont("assets/fonts/UbuntuMono-R.ttf");
   // background images
@@ -64,7 +66,7 @@ function preload (){
   var carImg5 = loadImage("assets/images/car_orange.png");
 
 
-  var heartImg =  loadImage("assets/images/heart.png");
+  heartImg =  loadImage("assets/images/heart.png");
 
   phoneImg = loadImage("assets/images/phone1.png");
 // images for control page
@@ -81,10 +83,10 @@ function setup() {
 
   createCanvas(screenWidth,screenHeight);
   city = new City(streetImages, screenWidth);
-  var playerCar = new Car(15,250,120,60,0,0,7,7,"#b70000", playerImg);
-  player = new Player(playerCar, 0, screenWidth, 100, 625);
   traffic = new Traffic(trafficSpeed, screenWidth, 0, maxCars, carImages);
-  phone = new Phone(600,10,phoneImg, soundReceive, soundSend, soundType);
+  var phone = new Phone(600,10,phoneImg, soundReceive, soundSend, soundType);
+  var playerCar = new Car(15,250,120,60,0,0,7,7,"#b70000", playerImg);
+  player = new Player(playerCar, 0, screenWidth, 100, 625, phone, soundHit, heartImg);
 
 // add the first 2 streets.
 // new street is spawned at back of second street when first street is gone
@@ -99,7 +101,7 @@ function setup() {
     traffic.addCar(start);
     start += space;
   }
-  phone.addText();
+  gameStart = false;
 }
 
 //draw function
@@ -107,20 +109,45 @@ function draw () {
 
 //displays player and updates position, and traffic
   city.update();
-  traffic.update(player);
   city.display();
-// displays player
+
+// displays the traffic and text
+if(gameStart){
+  traffic.update(player);
+  traffic.display();
+}
+else{
+  menu();
+}
+
+  // displays player
   player.display();
   player.update();
-// displays the traffic and text
-  traffic.display();
-  phone.display();
 
-  phone.addText();
+  if(player.lives == 0){
+    gameOver();
+  }
 }
 //handle input for the player and phone
 function keyPressed() {
   player.handleInput(keyCode);
-  phone.handleInput(keyCode);
+}
 
+function gameOver(){
+
+  fill(255,0,0);
+  push();
+  textAlign(CENTER);
+  textSize(50);
+  text("YOU DIED", screenWidth / 2, screenHeight / 3);
+
+  text("Press 1 to reset", screenWidth / 2, screenHeight - 200);
+
+  player.phone.addDeadText();
+  pop();
+
+  if(keyCode == 49) setup();
+}
+function menu(){
+  if(player.phone.textID > numberOfInstructions) gameStart = true;
 }
