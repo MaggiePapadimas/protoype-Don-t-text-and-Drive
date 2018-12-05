@@ -1,12 +1,14 @@
 // adds cars into game
-var startYs = [170, 270]
+var startYs = [100, 210, 320, 435, 550]
 // holds traffic
-function Traffic ( vx, startX, endX ){
-  this.maxCar = 5;
+function Traffic ( vx, startX, endX, maxCar, images ){
+  this.maxCar = maxCars ;
   this.vx = vx;
   this.startX = startX;
   this.endX = endX;
+  this.carImages = images;
   this.cars = [];
+
 }
 // displays the cars
 Traffic.prototype.display = function(){
@@ -30,7 +32,7 @@ Traffic.prototype.update = function( player ){
 // adds cars
 Traffic.prototype.addCar = function( startX ){
   var number = (int)(random(0, startYs.length));
-  this.cars.push(new Car(startX, startYs[number], 120, 60, this.vx, 0, 0, 0, "#00B2FF"));
+  this.cars.push(new Car(startX, startYs[number], 120, 60, this.vx, 0, 0, 0, "#00B2FF", this.carImages[0]));
 }
 // checks if car is out of screen
 Traffic.prototype.outOfScreen = function( car ){

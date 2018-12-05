@@ -12,16 +12,17 @@ function IsInside(x, y, boxX, boxY, boxWidth, boxHeight){
 
 
 //car
-function Car (x, y, w, h, vx, vy, maxVSpeed, maxHSpeed, color){
+function Car (x, y, w, h, vx, vy, maxXSpeed, maxYSpeed, color, img){
   this.x = x;
   this.y = y;
   this.w = w;
   this.h = h;
   this.vx = vx;
   this.vy = vy;
-  this.maxVSpeed = maxVSpeed;
-  this.maxHSpeed = maxHSpeed;
+  this.maxHSpeed = maxXSpeed;
+  this.maxVSpeed = maxYSpeed;
   this.color = color;
+  this.img = img;
 
 }
 
@@ -29,8 +30,10 @@ function Car (x, y, w, h, vx, vy, maxVSpeed, maxHSpeed, color){
 Car.prototype.display = function () {
   gameScreen = 1;
   noStroke();
-  fill(this.color);
+  fill(50,50,50,100);
   rect(this.x,this.y,this.w,this.h);
+
+  image(this.img,this.x,this.y, this.w, this.h);
 }
 
 //updates the position

@@ -36,6 +36,7 @@ Player.prototype.update = function () {
 Player.prototype.display = function () {
   gameScreen = 1;
   this.car.display();
+  text("" + this.car.x + ", " + this.car.y,500,500);
 }
 
 //controls the car

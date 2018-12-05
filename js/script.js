@@ -6,7 +6,8 @@
 // the goal of the game is to get home without "crashing". You have to avoid trees, houses, and water while answering your texts on your phone.
 //this is script
 //controls the scroll speed
-var scrollSpeed = 15;
+var scrollSpeed = 6;
+var maxCars = 6;
 // cars to dodge
 var enemyCar;
 //player
@@ -14,7 +15,10 @@ var playerCar;
 var player;
 //background
 var city;
-var images = [];
+var streetImages = [];
+
+var carImages = [];
+
 // for menu
 var menu;
 var controlsMenu;
@@ -26,36 +30,41 @@ var traffic;
 var phoneText;
 // canvas
 var screenWidth = 1000;
-var screenHeight = 500;
+var screenHeight = 833;
 
 var monoFont;
 // images
 function preload (){
  monoFont = loadFont("assets/fonts/UbuntuMono-R.ttf");
   // background images
-  img1 = loadImage("assets/images/img1v3.jpg");
-  img2 = loadImage("assets/images/img2v3.jpg");
-  img3 = loadImage("assets/images/img3v3.jpg");
-  img4 = loadImage("assets/images/img4v3.jpg")
+  var streetImg0 = loadImage("assets/images/street0.jpg");
+  var streetImg1 = loadImage("assets/images/street1.jpg");
+  var streetImg2 = loadImage("assets/images/street2.jpg");
+  var streetImg3 = loadImage("assets/images/street3.jpg")
+
+  var carImg0 = loadImage("assets/images/car_blue.png");
+  var carImg1 = loadImage("assets/images/car_green.png");
+  var carImg2 = loadImage("assets/images/car_grey.png");
+  var carImg3 = loadImage("assets/images/car_red.png");
+  var carImg4 = loadImage("assets/images/car_yellow.png");
+
+  var heartImg =  loadImage("assets/images/heart.png");
 // images for control page
-  controlImage = loadImage("assets/images/controlbutton.jpg");
-  keyboardImage = loadImage("assets/images/controlbutton.jpg");
-// buttons
-  controlButton = loadImage("assets/images/controlbutton.jpg");
-  playButton = loadImage("assets/images/playbutton.jpg");
-  menuButton = loadImage("assets/images/menubutton.jpg");
+
 // background loop
-  images = [img1, img2, img3, img4];
+  streetImages = [streetImg0, streetImg1, streetImg2, streetImg3];
+  carImages = [carImg0, carImg1, carImg2, carImg3];
+
 }
 // loads background, player, menu, and enemy cars
 function setup() {
   textFont(monoFont);
 
   createCanvas(screenWidth,screenHeight);
-  city = new City(images, screenWidth);
-  playerCar = new Car(15,250,120,60,0,0,5,5,"#b70000");
-  player = new Player(playerCar, 0, screenWidth, 100, 400);
-  traffic = new Traffic(-9, screenWidth, 0);
+  city = new City(streetImages, screenWidth);
+  playerCar = new Car(15,250,120,60,0,0,7,7,"#b70000", carImages[1]);
+  player = new Player(playerCar, 0, screenWidth, 100, 625);
+  traffic = new Traffic(-9, screenWidth, 0, maxCars, carImages);
   phoneText = new PhoneText("type this text", 550, 100, 400, 300, "#636363", "#004545", "#670020", "#ffffff" )
 
 //  menu = new Menu( "#C0C0C0", width, height, controlButton, playButton);
@@ -64,7 +73,7 @@ function setup() {
 //  menu.display();
 // loops the street
   city.addStreet(0);
-  city.addStreet(images[0].width);
+  city.addStreet(streetImages[0].width);
   var start = screenWidth;
   var space = 400;
   for(var i = 0; i < 3; i++){
