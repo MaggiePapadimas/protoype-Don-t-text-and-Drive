@@ -48,10 +48,10 @@ function preload (){
   //soundSend
   monoFont = loadFont("assets/fonts/UbuntuMono-R.ttf");
   // background images
-  var streetImg0 = loadImage("assets/images/street0.png");
-  var streetImg1 = loadImage("assets/images/street1.png");
-  var streetImg2 = loadImage("assets/images/street2.png");
-  var streetImg3 = loadImage("assets/images/street3.png");
+  var streetImg0 = loadImage("assets/images/street0.jpg");
+  var streetImg1 = loadImage("assets/images/street1.jpg");
+  var streetImg2 = loadImage("assets/images/street2.jpg");
+  var streetImg3 = loadImage("assets/images/street3.jpg");
 
   playerImg = loadImage("assets/images/car_player.png");
   var carImg0 = loadImage("assets/images/car_blue.png");
