@@ -1,4 +1,8 @@
 body {
-  padding: 0;
+  padding-top: 75px;
+  padding-left: 75px;
   margin: 0;
+}
+html, body {
+  background: black;
 }
