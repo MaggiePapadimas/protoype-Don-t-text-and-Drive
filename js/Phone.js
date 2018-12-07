@@ -1,7 +1,7 @@
 
 
 var textWaitMin = 3;
-var textWaitMax = 10;
+var textWaitMax = 9;
 var numberOfInstructions = 4;
 var senders = [
   "Controls 1 / 4",
@@ -30,24 +30,24 @@ var incomingTexts = [
   "Im great! So what are you doing now?",
   "BROOOO u comming to alex's party!!!!???? XD",
   "Oh, you really shouldn't text and drive >:(",
-  "Well anyway, do you think you can pick up some eggs?"
+  "Ok. Then I will see you soon. >>>:("
 ]
 
 // 30 chars max for the answer
 // xxxxxxxxxxxxxxxxxxxxxxxxxxxx
 var replies = [
   "copy this text",
-  "send anything for next",
+  "next",
   "ok",
-  "start the game",
+  "start",
 
   "hi",
   "im good you",
-  "no mom im busy today",
+  "no mom im so busy",
   "im driving home now",
-  "haha yeee man whos going",
+  "yeah dude whos going",
   "well i do this often",
-  "im only five minutes "
+  "bye"
 ]
 
 
@@ -131,8 +131,6 @@ Phone.prototype.display = function() {
     textAlign(CENTER);
     text(this.senderText, this.x + this.senderX, this.y + this.senderY, senderBoxWidth, 32);
     pop();
-  //  fill(100,100,100,150);
-  //  rect(this.x,this.y,this.w,this.h);
 
     this.outgoingText.display();
   }
@@ -149,6 +147,8 @@ Phone.prototype.handleInput = function (input) {
       this.currentTime = millis();
       this.waitTime = random(textWaitMin, textWaitMax) * 1000;
 
+      this.textID++;
+
       if(this.textID <= numberOfInstructions){
         this.waitTime = 1500;
         this.currentTime  = millis();
@@ -156,11 +156,10 @@ Phone.prototype.handleInput = function (input) {
       }
     }
   }
-
 }
 
 Phone.prototype.addText = function(){
-  if(!this.hasText && millis() - this.currentTime > this.waitTime){
+  if(!this.hasText && millis() - this.currentTime > this.waitTime  && !this.IsDone()){
     this.soundReceive.play();
     this.hasText = true;
     var xSize = this.w - 2*this.paddX;
@@ -175,10 +174,6 @@ Phone.prototype.addText = function(){
 
     this.incomingText = incomingTexts[this.textID];
     this.senderText = senders[this.textID];
-
-    this.textID++;
-    this.textID%= replies.length;
-
   }
 }
 
@@ -198,5 +193,7 @@ Phone.prototype.addDeadText = function(){
     this.textID%= deadTexts.length;
     this.currentTime = millis();
   }
-
+}
+Phone.prototype.IsDone = function(){
+    return (this.textID == replies.length);
 }

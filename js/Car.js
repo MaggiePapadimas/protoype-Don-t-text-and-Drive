@@ -28,7 +28,6 @@ function Car (x, y, w, h, vx, vy, maxXSpeed, maxYSpeed, color, img){
 
 //displays the car
 Car.prototype.display = function () {
-  gameScreen = 1;
   noStroke();
   fill(50,50,50,100);
   rect(this.x,this.y,this.w,this.h);

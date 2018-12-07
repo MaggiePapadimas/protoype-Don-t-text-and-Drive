@@ -23,11 +23,6 @@ var streetImages = [];
 
 var carImages = [];
 
-// for menu
-var menu;
-var controlsMenu;
-// screens
-var gameScreen = 0;
 // enemy cars
 var traffic;
 
@@ -41,7 +36,8 @@ var soundReceive;
 var soundType;
 var soundSend;
 var soundHit;
-var gameStart;
+var gameScreen;
+var screenDarkness;
 // images
 function preload (){
 
@@ -101,7 +97,8 @@ function setup() {
     traffic.addCar(start);
     start += space;
   }
-  gameStart = false;
+  gameScreen = 0;
+  screenDarkness = 0;
 }
 
 //draw function
@@ -111,22 +108,34 @@ function draw () {
   city.update();
   city.display();
 
+
 // displays the traffic and text
-if(gameStart){
-  traffic.update(player);
-  traffic.display();
-}
-else{
-  menu();
-}
-
-  // displays player
-  player.display();
-  player.update();
-
-  if(player.lives == 0){
+  if( gameScreen == 0){
+    menu();
+  }
+  else if (gameScreen == 1){
+    //console.log("" + gameScreen);
+    traffic.update(player);
+    traffic.display();
+  }
+  else if(gameScreen == 2){
+    winScreen();
+  }
+  else if(gameScreen == 3){
     gameOver();
   }
+
+
+  if(player.lives == 0 && gameScreen == 1){
+    gameScreen = 3;
+  }
+  else if(gameScreen == 1 && player.phone.IsDone()){
+    gameScreen = 2;
+  }
+
+      // displays player
+      player.display();
+      player.update();
 }
 //handle input for the player and phone
 function keyPressed() {
@@ -134,7 +143,7 @@ function keyPressed() {
 }
 
 function gameOver(){
-
+  background(255 - screenDarkness, 255 - screenDarkness, 255 - screenDarkness, screenDarkness++);
   fill(255,0,0);
   push();
   textAlign(CENTER);
@@ -148,6 +157,22 @@ function gameOver(){
 
   if(keyCode == 49) setup();
 }
+
+function winScreen(){
+  fill(0,255,0);
+  push();
+  textAlign(CENTER);
+  textSize(50);
+  text("YOU WIN", screenWidth / 2, screenHeight / 3);
+  text("FINAL SCORE: " + player.phone.score, screenWidth / 2, screenHeight / 2);
+
+  text("Press 1 to reset", screenWidth / 2, screenHeight - 200);
+
+  pop();
+
+  if(keyCode == 49) setup();
+}
+
 function menu(){
-  if(player.phone.textID > numberOfInstructions) gameStart = true;
+  if(player.phone.textID > numberOfInstructions) gameScreen = 1;
 }

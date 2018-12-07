@@ -7,7 +7,6 @@ function City( images, maxBar ){
 
 //displays the car
 City.prototype.display = function () {
-  gameScreen = 1;
   for(var i = 0; i < this.streets.length; i++){
     this.streets[i].display();
   }

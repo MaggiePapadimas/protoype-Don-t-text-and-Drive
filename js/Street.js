@@ -1,5 +1,3 @@
-//background
-var gameScreen = 1;
 // for street
 function Street(x, y, image, maxBar) {
   this.x = x;
