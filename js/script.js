@@ -108,20 +108,24 @@ function draw () {
   city.update();
   city.display();
 
+  // displays player
 
 // displays the traffic and text
   if( gameScreen == 0){
     menu();
   }
-  else if (gameScreen == 1){
+  if (gameScreen == 1){
     //console.log("" + gameScreen);
     traffic.update(player);
     traffic.display();
   }
-  else if(gameScreen == 2){
+  player.display();
+  player.update();
+
+  if(gameScreen == 2){
     winScreen();
   }
-  else if(gameScreen == 3){
+  if(gameScreen == 3){
     gameOver();
   }
 
@@ -133,9 +137,7 @@ function draw () {
     gameScreen = 2;
   }
 
-      // displays player
-      player.display();
-      player.update();
+
 }
 //handle input for the player and phone
 function keyPressed() {
@@ -143,7 +145,9 @@ function keyPressed() {
 }
 
 function gameOver(){
-  background(255 - screenDarkness, 255 - screenDarkness, 255 - screenDarkness, screenDarkness++);
+console.log("game over")
+  background(0,0,0, screenDarkness);
+  if(screenDarkness < 255) screenDarkness++
   fill(255,0,0);
   push();
   textAlign(CENTER);
@@ -174,5 +178,5 @@ function winScreen(){
 }
 
 function menu(){
-  if(player.phone.textID > numberOfInstructions) gameScreen = 1;
+  if(player.phone.textID == numberOfInstructions) gameScreen = 1;
 }

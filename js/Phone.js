@@ -6,8 +6,8 @@ var numberOfInstructions = 4;
 var senders = [
   "Controls 1 / 4",
   "Controls 2 / 4",
-  "COntrols 3 / 4",
-  "COntrols 4 / 4",
+  "Controls 3 / 4",
+  "Controls 4 / 4",
 
   "girl",
   "girl",
@@ -179,6 +179,7 @@ Phone.prototype.addText = function(){
 
 Phone.prototype.addDeadText = function(){
   if(millis() - this.currentTime > this.waitTime){
+    this.hasText = true;
     this.soundReceive.play();
     var xSize = this.w - 2*this.paddX;
     var ySize = 35;
@@ -189,11 +190,13 @@ Phone.prototype.addDeadText = function(){
     this.incomingText = deadTexts[this.textID];
     this.senderText = deadSenders[this.textID];
 
+
     this.textID++;
     this.textID%= deadTexts.length;
     this.currentTime = millis();
   }
 }
+
 Phone.prototype.IsDone = function(){
     return (this.textID == replies.length);
 }
