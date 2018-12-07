@@ -76,7 +76,7 @@ Player.prototype.display = function () {
   if(this.lives > 0){
     if(!this.flashOn) this.car.display();
   }
-    this.phone.display();
+  this.phone.display();
   var heartXPos = heartStartX;
   for(var i = 0; i < this.lives;++i){
     image(this.heartImg, heartXPos,heartStartY, heartSize, heartSize);
